@@ -10,7 +10,6 @@
   
   <style>
     :root {
-      --color-primary: #f0f8ff;
       --color-secondary: #FF5C00;
       --color-accent: #2c3e50;
       --color-hover: #ffffff;
@@ -18,26 +17,40 @@
     }
 
     body {
-      background-color: var(--color-primary);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: var(--color-accent);
       text-align: center;
       margin: 0;
-      padding: 1rem 1rem; 
+      padding: 1rem; 
       display: flex;
       flex-direction: column;
       min-height: 100vh;
       justify-content: flex-start; 
       align-items: center;
+
+      /* 🔥 Animated Gradient Background */
+      background: linear-gradient(-45deg, #f0f8ff, #ffe5d9, #fff3b0, #d0f4de);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
     }
 
+    /* 🔥 Judul dengan gradient + animasi */
     h1 {
-      font-size: clamp(1rem, 5vw, 2rem);
+      max-width: 800px;
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
       margin-bottom: 1rem;
-      color: var(--color-secondary);
+      background: linear-gradient(90deg, #FF5C00, #FF1E56, #FF5C00);
+      background-size: 200% auto;
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      font-weight: 900;
       text-shadow: 1px 1px 2px var(--color-shadow);
       margin-top: 0.5rem; 
       white-space: nowrap;
+
+      opacity: 0;
+      animation: fadeInDown 1s ease forwards, shimmer 3s linear infinite;
     }
 
     figure {
@@ -48,6 +61,16 @@
       padding: 1rem;
       border-radius: 12px;
       box-shadow: 0 8px 16px var(--color-shadow);
+
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.5s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    figure:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     }
 
     img {
@@ -64,11 +87,16 @@
       gap: 1rem;
       margin-top: 0.5rem; 
       width: 100%;
+      max-width: 800px;
+
+      opacity: 0;
+      animation: fadeInBounce 1s ease forwards;
+      animation-delay: 1s;
     }
 
-    /* 🔥 Tombol dengan animasi keren */
+    /* 🔥 Tombol */
     a {
-      display: inline-block;
+      display: block;
       padding: 0.75rem 1.5rem;
       background: linear-gradient(135deg, #FF5C00, #FF8C42);
       color: #ffffff;
@@ -80,6 +108,7 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
 
     a::before {
@@ -99,8 +128,9 @@
 
     a:hover {
       background: linear-gradient(135deg, #FF8C42, #FF5C00);
-      transform: scale(1.08);
+      transform: scale(1.05);
       box-shadow: 0 8px 20px rgba(255, 92, 0, 0.5);
+      animation: pulse 1s infinite alternate;
     }
 
     a:active {
@@ -108,16 +138,60 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
 
+    footer {
+      margin-top: auto;
+      padding: 1rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 1.5s;
+    }
+
+    /* Animasi fade-in */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Efek shimmer di judul */
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* Bounce effect tombol */
+    @keyframes fadeInBounce {
+      0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+      60% { opacity: 1; transform: translateY(-10px) scale(1.05); }
+      80% { transform: translateY(5px) scale(0.97); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    /* Pulse hover */
+    @keyframes pulse {
+      from { box-shadow: 0 8px 20px rgba(255, 92, 0, 0.4); }
+      to { box-shadow: 0 12px 28px rgba(255, 92, 0, 0.7); }
+    }
+
+    /* Gradient animasi background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     @media (min-width: 768px) {
-      body { padding: 2rem; }
-      h1 { font-size: 2.5rem; }
+      h1 { font-size: 2.8rem; }
       figure { margin-bottom: 0.5rem; }
       .button-container { flex-direction: row; gap: 1.5rem; }
       a { flex: 1; font-size: 1.1rem; }
     }
 
     @media (max-width: 480px) {
-      h1 { font-size: 1.5rem; margin-top: 0.5rem; }
+      h1 { font-size: 1.8rem; margin-top: 0.5rem; }
       figure { padding: 0.5rem; margin-bottom: 0.5rem; }
       a { padding: 0.6rem 1rem; font-size: 0.9rem; }
       .button-container { margin-top: 0.5rem; }
@@ -166,20 +240,5 @@
       if (e.ctrlKey && forbiddenCtrlKeys.includes(e.key.toUpperCase())) e.preventDefault();
     });
   </script>
-
-  <!-- Histats.com START -->
-  <script type="text/javascript">
-    var _Hasync= _Hasync|| [];
-    _Hasync.push(['Histats.start', '1,4573229,4,0,0,0,00010000']);
-    _Hasync.push(['Histats.fasi', '1']);
-    _Hasync.push(['Histats.track_hits', '']);
-    (function() {
-      var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-      hs.src = ('//s10.histats.com/js15_as.js');
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
-    })();
-  </script>
-  <noscript><a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?4573229&101" alt="" border="0"></a></noscript>
-  <!-- Histats.com END -->
 </body>
 </html>
