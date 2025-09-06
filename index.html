@@ -10,6 +10,7 @@
   
   <style>
     :root {
+      --color-primary: #f0f8ff;
       --color-secondary: #FF5C00;
       --color-accent: #2c3e50;
       --color-hover: #ffffff;
@@ -17,6 +18,7 @@
     }
 
     body {
+      background-color: var(--color-primary);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: var(--color-accent);
       text-align: center;
@@ -27,11 +29,6 @@
       min-height: 100vh;
       justify-content: flex-start; 
       align-items: center;
-
-      /* 🔥 Animated Gradient Background */
-      background: linear-gradient(-45deg, #f0f8ff, #ffe5d9, #fff3b0, #d0f4de);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
     }
 
     /* 🔥 Judul dengan gradient + animasi */
@@ -174,13 +171,6 @@
     @keyframes pulse {
       from { box-shadow: 0 8px 20px rgba(255, 92, 0, 0.4); }
       to { box-shadow: 0 12px 28px rgba(255, 92, 0, 0.7); }
-    }
-
-    /* Gradient animasi background */
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
     @media (min-width: 768px) {
